@@ -1,0 +1,16 @@
+travel buddy
+
+
+
+
+kevin: front-end/bootstrap/html/css
+justin: front end with kevin
+david: back end js with brian
+brian: backend/javscript/ajax
+
+we are creating a search engine to populate the page with your travel destination info, 
+such as hospitals, currency exchange rates, weather forecast, etc. 
+
+we would pull from darksky api for weather, google places for basic info and locations about the desitination.
+
+ 
