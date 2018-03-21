@@ -16,7 +16,7 @@ var config = {
 
 //   var location = "";
   var queryURLOpenWeather = "https://api.openweathermap.org/data/2.5/weather?q=" + "san+diego" + "&appid=cd03ae7d8279897013fd57ac14371c18";
-  var queryURLCurrencyLayer = "http://www.apilayer.net/api/live?access_key=e7309c7b642881620d0502e49a7380e5&currencies=EUR,GBP,CAD,CHF,JPY,AUD&source=USD&format=1";
+  var queryURLCurrencyLayer = "http://www.apilayer.net/api/live?access_key=e7309c7b642881620d0502e49a7380e5&currencies=EUR,GBP,CAD,CHF,JPY,AUD,MXN&source=USD&format=1";
 //   var queryURLGooglePlaces = "AIzaSyB_Xfhs13XHrV22XM0BH6cxMe3gu3yx4eg"
 
 //open weather API
@@ -84,6 +84,7 @@ $.ajax ({
     $(".CHF").html('$'+source.quotes.USDCHF)
     $(".JPY").html('$'+source.quotes.USDJPY)
     $(".AUD").html('$'+source.quotes.USDAUD)
+    $(".MXN").html('$'+source.quotes.USDMXN)
     
   }).catch(function(error) {
     console.log(error)
