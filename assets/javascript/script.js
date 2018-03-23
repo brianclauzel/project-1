@@ -14,63 +14,96 @@ var config = {
 
   var database = firebase.database();
 
+
 //   var location = "";
   var queryURLOpenWeather = "https://api.openweathermap.org/data/2.5/weather?q=" + "san+diego" + "&appid=cd03ae7d8279897013fd57ac14371c18";
+
   var queryURLCurrencyLayer = "http://www.apilayer.net/api/live?access_key=e7309c7b642881620d0502e49a7380e5&currencies=EUR,GBP,CAD,CHF,JPY,AUD,MXN&source=USD&format=1";
+
+
+
 //   var queryURLGooglePlaces = "AIzaSyB_Xfhs13XHrV22XM0BH6cxMe3gu3yx4eg"
 
-//open weather API
 
-    
+//google places api 
+ function activatePlacesSearch() {
+  var map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: -33.8688, lng: 151.2195},
+    zoom: 13
+  });
 
+  
 
-    var map;
-    var infowindow;
+  
+    var input = document.getElementById('search-term');
+    var autocomplete = new google.maps.places.Autocomplete(input);
 
-    function initMap() {
-      var pyrmont = {lat: -33.867, lng: 151.195};
+    autocomplete.bindTo('bounds', map);
 
-      map = new google.maps.Map(document.getElementById('map'), {
-        center: pyrmont,
-        zoom: 15
-      });
+        // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
-      infowindow = new google.maps.InfoWindow();
-      var service = new google.maps.places.PlacesService(map);
-      service.nearbySearch({
-        location: pyrmont,
-        radius: 500,
-        type: ['store']
-      }, callback);
-    }
+        var infowindow = new google.maps.InfoWindow();
+        var infowindowContent = document.getElementById('infowindow-content');
+        infowindow.setContent(infowindowContent);
+        var marker = new google.maps.Marker({
+          map: map
+        });
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
 
-    function callback(results, status) {
-      if (status === google.maps.places.PlacesServiceStatus.OK) {
-        for (var i = 0; i < results.length; i++) {
-          createMarker(results[i]);
-        }
+        autocomplete.addListener('place_changed', function() {
+          infowindow.close();
+          var place = autocomplete.getPlace();
+          if (!place.geometry) {
+            return;
+          }
+
+          if (place.geometry.viewport) {
+            map.fitBounds(place.geometry.viewport);
+          } else {
+            map.setCenter(place.geometry.location);
+            map.setZoom(17);
+          }
+
+          // Set the position of the marker using the place ID and location.
+          marker.setPlace({
+            placeId: place.place_id,
+            location: place.geometry.location
+          });
+          marker.setVisible(true);
+
+          infowindowContent.children['place-name'].textContent = place.name;
+          infowindowContent.children['place-id'].textContent = place.place_id;
+          infowindowContent.children['place-address'].textContent =
+              place.formatted_address;
+          infowindow.open(map, marker);
+        });
+        
       }
-    }
 
-    function createMarker(place) {
-      var placeLoc = place.geometry.location;
-      var marker = new google.maps.Marker({
-        map: map,
-        position: place.geometry.location
-      });
 
-      google.maps.event.addListener(marker, 'click', function() {
-        infowindow.setContent(place.name);
-        infowindow.open(map, this);
-      });
-    }
+  //getting the value of the entered city to add into the weather api
+  $("body").on("click", ".search-button", function(){
+    var inputChange = $("#search-term").val().trim();
+    var weatherLocation = inputChange.replace(" ", "+");
+    var cityWeather = $(".city-info").text(weatherLocation);
+    
+    
+    var queryURLOpenWeather = "https://api.openweathermap.org/data/2.5/weather?q=" + weatherLocation + "&units=imperial&appid=cd03ae7d8279897013fd57ac14371c18";
+    console.log(weatherLocation);
 
+    //weather api call
     $.ajax({
         url: queryURLOpenWeather,
         method: "GET"
     }).then(function(response){
         console.log(response);
+        $(".body").append("the temp is: " + response.main.temp + " in farenheit.");
      });
+  });
+
+  
 
 //curency layer API
 
