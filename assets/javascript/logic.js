@@ -28,9 +28,10 @@ $(".btn").on("click", function(event){
   }).then(function(response) {
    console.log(response);
    console.log(response.results[0].fare.price_per_adult.total_fare);
-   
+   console.log(response.results[0].itineraries[0].inbound.flights[0].arrives_at)
       var tBody = $("<div>");
       var fare = response.results[0].fare.price_per_adult.total_fare;
+      var destin = response.results[0].itineraries[0].inbound.flights[0].arrives_at;
      
 
       var addingF = $(tBody).html(fare);
