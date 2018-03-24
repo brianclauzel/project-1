@@ -39,7 +39,7 @@ var config = {
   
 
   
-    var input = document.getElementById('search-term');
+    var input = document.getElementById('locationSearch');
     var autocomplete = new google.maps.places.Autocomplete(input);
 
     autocomplete.bindTo('bounds', map);
@@ -88,10 +88,10 @@ var config = {
 
 
   //getting the value of the entered city to add into the weather api
-  $("body").on("click", ".search-button", function(event){
+  $("body").on("click", ".searchButton", function(event){
     event.preventDefault();
 
-    var inputChange = $("#search-term").val().trim();
+    var inputChange = $("#locationSearch").val().trim();
     var weatherLocation = inputChange.replace(" ", "+");
     var cityWeather = $(".city-info").text(weatherLocation);
     
@@ -106,7 +106,7 @@ var config = {
 
     database.ref().push(weatherData);
 
-    $("#search-term").val("");
+    $("#locationSearch").val("");
 
     
     //weather api call
@@ -143,3 +143,93 @@ $.ajax ({
     var travelLocation = childSnapshot.val().locationSearch;
     $("#places").append("<div>" + travelLocation + "</div>");
   });
+
+
+ 
+  //updated flight ajax call
+  //updated hotel ajax and endpoint call
+  $(".btn").on("click", function(event) {
+    event.preventDefault();
+    var origin = $("#exampleInputFrom").val();
+    var destination = $("#exampleInputTo").val();
+    var dates = $("#exampleInputDates").val();
+    var toDates= $("#exampleInputToDates").val();
+    var trav = $("#exampleInputTravelers").val();
+  console.log(origin);
+  console.log(destination);
+  console.log(dates);
+  console.log(toDates);
+  console.log(trav); 
+  var corsProxy = "https://cors-anywhere.herokuapp.com/";
+  var queryURLAmadeus = corsProxy +"https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?origin=" + origin + "&destination=" + destination + "&departure_date=" + dates + "&return_date=" + toDates + "&number_of_results=5&apikey=0t376ZdSmzCLYEX2EkTXpb8iEABUZ2Hp"
+  console.log(queryURLAmadeus);
+  var location = $("#exampleInputTo").val().trim();
+      var checkIn = $("#exampleInputDates").val().trim();
+      var checkOut= $("#exampleInputToDates").val().trim();
+      
+    console.log(location)
+    console.log(checkIn)
+    console.log(checkOut)
+    
+    var corsProxy = "https://cors-anywhere.herokuapp.com/";
+    var queryURLAmadeus2 = corsProxy +"https://api.sandbox.amadeus.com/v1.2/hotels/search-airport?location=" + location + "&check_in=" + checkIn + "&check_out=" + checkOut + "&currency=USD" + "&number_of_results=5&apikey=0t376ZdSmzCLYEX2EkTXpb8iEABUZ2Hp"
+    
+    console.log(queryURLAmadeus2)
+    
+    $.ajax ({
+      url: queryURLAmadeus2,
+      method: "GET",
+    }).then(function(response) {
+      console.log(response);
+      console.log(response.results[0].property_name);
+      var body = $("<div>");
+      var hotel = response.results[0].property_name;
+      var addingH = $(body).text(hotel);
+      $("#hotelName").text(hotel);
+    })
+    
+  $.ajax ({
+    url: queryURLAmadeus,
+    method: "GET",
+  }).then(function(response) {
+   console.log(response);
+   console.log(response.results[0].fare.price_per_adult.total_fare);
+   console.log(response.results[0].itineraries[0].inbound.flights[0].arrives_at);
+   console.log(response.results[0].itineraries[0].outbound.flights[0].departs_at);
+      var tBody = $("<div>");
+      var fare = response.results[0].fare.price_per_adult.total_fare;
+      
+      var addingF = $(tBody).text(fare);
+      
+      var depart = response.results[0].itineraries[0].outbound.flights[0].departs_at;
+      
+      var addingDep = $(tBody).text(depart);
+      
+      var ariv = response.results[0].itineraries[0].inbound.flights[0].arrives_at;
+      
+      var addingAriv = $(tBody).text(ariv);
+      $("#fare").text(fare);
+      $("#arrive").text(ariv);
+      $("#depart").text(depart);
+  });
+  })
+
+  //point of interest 
+  $(".btn").on("click", function(event){
+    event.preventDefault();
+    var origin = $("#exampleInputFrom").val().trim();
+    
+  console.log(origin)
+  
+ 
+  var queryURLAmadeus = "https://api.sandbox.amadeus.com/v1.2/points-of-interest/yapq-search-text?city_name=" + origin + "&geonames=true" + "&number_of_results=5&apikey=0t376ZdSmzCLYEX2EkTXpb8iEABUZ2Hp"
+  console.log(queryURLAmadeus)
+ 
+  $.ajax ({
+    url: queryURLAmadeus,
+    method: "GET",
+  }).then(function(source) {
+    console.log(source);
+    $("#exampleInputFrom").html(source.origin)
+  });
+  })
