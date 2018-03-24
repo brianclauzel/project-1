@@ -2,12 +2,12 @@
 // currency layer api key http://www.apilayer.net/api/live?access_key=e7309c7b642881620d0502e49a7380e5&currencies=EUR,GBP,CAD,CHF,JPY,AUD,MXN&source=USD&format=1
 //google places api key AIzaSyB_Xfhs13XHrV22XM0BH6cxMe3gu3yx4eg
 var config = {
-    apiKey: "AIzaSyDhKEhP_x-HQhGALn5FPwE9oWsLWeg5xMM",
-    authDomain: "project-1-d73ca.firebaseapp.com",
-    databaseURL: "https://project-1-d73ca.firebaseio.com",
-    projectId: "project-1-d73ca",
-    storageBucket: "",
-    messagingSenderId: "884487038041"
+      apiKey: "AIzaSyBRS1dAa6s1fEmqNluML-JTh8B-4efk1Ag",
+      authDomain: "project-1-d9c1d.firebaseapp.com",
+      databaseURL: "https://project-1-d9c1d.firebaseio.com",
+      projectId: "project-1-d9c1d",
+      storageBucket: "",
+      messagingSenderId: "761973646492"
   };
 
   firebase.initializeApp(config);
@@ -15,10 +15,14 @@ var config = {
   var database = firebase.database();
 
 
+
 //   var location = "";
   var queryURLOpenWeather = "https://api.openweathermap.org/data/2.5/weather?q=" + "san+diego" + "&appid=cd03ae7d8279897013fd57ac14371c18";
 
   var queryURLCurrencyLayer = "http://www.apilayer.net/api/live?access_key=e7309c7b642881620d0502e49a7380e5&currencies=EUR,GBP,CAD,CHF,JPY,AUD,MXN&source=USD&format=1";
+
+
+
 
 
 
@@ -84,7 +88,9 @@ var config = {
 
 
   //getting the value of the entered city to add into the weather api
-  $("body").on("click", ".search-button", function(){
+  $("body").on("click", ".search-button", function(event){
+    event.preventDefault();
+
     var inputChange = $("#search-term").val().trim();
     var weatherLocation = inputChange.replace(" ", "+");
     var cityWeather = $(".city-info").text(weatherLocation);
@@ -93,6 +99,16 @@ var config = {
     var queryURLOpenWeather = "https://api.openweathermap.org/data/2.5/weather?q=" + weatherLocation + "&units=imperial&appid=cd03ae7d8279897013fd57ac14371c18";
     console.log(weatherLocation);
 
+
+    var weatherData = {
+      locationSearch: inputChange
+    }
+
+    database.ref().push(weatherData);
+
+    $("#search-term").val("");
+
+    
     //weather api call
     $.ajax({
         url: queryURLOpenWeather,
@@ -122,3 +138,8 @@ $.ajax ({
   }).catch(function(error) {
     console.log(error)
   })
+
+  database.ref().on("child_added", function(childSnapshot, prevChildKey) {
+    var travelLocation = childSnapshot.val().locationSearch;
+    $("#places").append("<div>" + travelLocation + "</div>");
+  });
