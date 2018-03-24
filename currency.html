@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Page Title</title>
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+  <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>    
+    <table>
+      <thead>
+         <tr>
+            <th>The Dollar Against...</th>
+            <th>Amount</th>
+         </tr>
+      </thead>
+      <tbody>
+         <tr>            
+            <td>British Pound</td>
+            <td class="GBP">GBP</td>
+         </tr>
+         <tr>
+            <td>Euro</td>
+            <td class="EUR">EUR</td>
+         </tr>
+         <tr>
+            <td>Swiss Franc</td>
+            <td class="CHF">CHF</td>
+         </tr>
+         <tr>
+            <td>Japanese Yen</td>
+            <td class="JPY">JPY</td>
+          </tr>
+          <tr>
+            <td>Australian Dollar</td>
+            <td class="AUD">AUD</td>
+          </tr>
+          <tr>
+              <td>Mexican Peso</td>
+              <td class="MXN">MXN</td>
+            </tr>
+           
+            <!--<form>
+    
+              <div class="form-group">
+                <label for="exampleInputFrom">Origin</label>
+                <input type="text" class="form-control" id="exampleInputFrom" aria-describedby="emailHelp" placeholder="LAX">
+                <small id="emailHelp" class="form-text text-muted">Additional Text</small>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputTo">Destination</label>
+                <input type="text" class="form-control" id="exampleInputTo" placeholder="JFK">
+              </div>
+              <div class="form-group">
+                  <label for="exampleInputDates">Departure Date</label>
+                  <input type="date" class="form-control" id="exampleInputDates" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputToDates">Return Date</label>
+                    <input type="date" class="form-control" id="exampleInputToDates" placeholder="">
+                  </div>
+                <div class="form-group">
+                    <label for="exampleInputTravelers">Travelers</label>
+                    <input type="text" class="form-control" id="exampleInputTravelers" placeholder="How many?">
+                  </div>
+                  <div class="form-group">
+                    <label for="max_price">Budget</label>
+                    <input type="text" class="form-control" id="max_price" placeholder="$">
+                  </div>
+              <button type="submit" class="btn btn-primary">Search</button>
+              <br>
+              <hr style="color:white">
+              <br>
+
+            </form>-->
+            <script>
+            
+ 
+ /*$(".btn").on("click", function(event){
+   event.preventDefault();
+   var origin = $("#exampleInputFrom").val().trim();
+   var destination = $("#exampleInputTo").val().trim();
+   var dates = $("#exampleInputDates").val().trim();
+   var toDates= $("#exampleInputToDates").val().trim();
+   var trav = $("#exampleInputTravelers").val().trim();
+   var budget = $("#max_price").val().trim();
+ console.log(origin)
+ console.log(destination)
+ console.log(dates)
+ console.log(toDates)
+ console.log(trav) 
+ console.log(budget)
+ var corsProxy = "https://cors-anywhere.herokuapp.com/";
+ var queryURLAmadeus = corsProxy +"https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?origin=" + origin + "&destination=" + destination + "&departure_date=" + dates + "&return_date=" + toDates + "&max_price=" + budget + "&currency=USD" + "&number_of_results=5&apikey=0t376ZdSmzCLYEX2EkTXpb8iEABUZ2Hp"
+ console.log(queryURLAmadeus)
+ $.ajax ({
+   url: queryURLAmadeus,
+   method: "GET",
+ }).then(function(source) {
+   console.log(source);
+   $("#exampleInputFrom").html(source.origin)
+ })
+ })
+
+ $(".btn").on("click", function(event){
+   event.preventDefault();
+   //var origin = $("#exampleInputFrom").val();
+   var location = $("#exampleInputTo").val().trim();
+   var checkIn = $("#exampleInputDates").val().trim();
+   var checkOut= $("#exampleInputToDates").val().trim();
+   //var trav = $("#exampleInputTravelers").val();
+ //console.log(origin)
+ console.log(location)
+ console.log(checkIn)
+ console.log(checkOut)
+ //console.log(trav) 
+ var corsProxy = "https://cors-anywhere.herokuapp.com/";
+ var queryURLAmadeus2 = corsProxy +"https://api.sandbox.amadeus.com/v1.2/hotels/search-airport?location=" + location + "&check_in=" + checkIn + "&check_out=" + checkOut + "&currency=USD" + "&number_of_results=5&apikey=0t376ZdSmzCLYEX2EkTXpb8iEABUZ2Hp"
+ console.log(queryURLAmadeus2)
+ $.ajax ({
+   url: queryURLAmadeus2,
+   method: "GET",
+ }).then(function(source) {
+   console.log(source);
+   $("#exampleInputFrom").html(source.origin)
+ })
+ })*/
+
+
+var queryURLCurrencyLayer = "http://www.apilayer.net/api/live?access_key=e7309c7b642881620d0502e49a7380e5&currencies=EUR,GBP,CAD,CHF,JPY,AUD,MXN&source=USD&format=1";
+ $.ajax ({
+   url: queryURLCurrencyLayer,
+   method: "GET",  
+   }).then(function(source) {
+     console.log(source);
+     $(".GBP").html('$'+source.quotes.USDGBP)
+     $(".EUR").html('$'+source.quotes.USDEUR)
+     $(".CHF").html('$'+source.quotes.USDCHF)
+     $(".JPY").html('$'+source.quotes.USDJPY)
+     $(".AUD").html('$'+source.quotes.USDAUD)
+     $(".MXN").html('$'+source.quotes.USDMXN)
+     
+   }).catch(function(error) {
+     console.log(error)
+   })
+   </script>
+  </body>
+  </html>
