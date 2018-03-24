@@ -25,11 +25,17 @@ $(".btn").on("click", function(event){
   $.ajax ({
     url: queryURLAmadeus,
     method: "GET",
-  }).then(function(source) {
-    console.log(source);
-    $("#exampleInputFrom").html(source.origin)
+  }).then(function(response) {
+   console.log(response);
+   console.log(response.results[0].fare.price_per_adult.total_fare);
+      var tBody = $("<div>");
+      var fare = response.results[0].fare.price_per_adult.total_fare;
+      var addingF = $(tBody).html(fare);
+      $("#fare").append(addingF);
+     
+  });
   })
-  })
+  
  
   //hotel details 
   $(".btn").on("click", function(event){
