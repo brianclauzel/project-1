@@ -126,4 +126,9 @@ html {
   background-color: #f5f5f5;
 }*/
 
+/* trying ot get the nav tranparent
+.navbar .navbar-expand-md .navbar-dark .fixed-top .bg-dark{
+  background: rgba(0,0,0,0.4);
+  z-index: 1000;
+}*/
 
