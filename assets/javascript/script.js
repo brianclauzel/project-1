@@ -101,7 +101,7 @@ var config = {
     
     
     var queryURLOpenWeather = "https://api.openweathermap.org/data/2.5/weather?q=" + weatherLocation + "&units=imperial&appid=cd03ae7d8279897013fd57ac14371c18";
-    var queryURLOpenWeatherTwo = "https://api.openweathermap.org/data/2.5/forecast?q=" + weatherLocation + "&appid=cd03ae7d8279897013fd57ac14371c18";
+    var queryURLOpenWeatherTwo = "https://api.openweathermap.org/data/2.5/forecast?q=" + weatherLocation + "&units=imperial&appid=cd03ae7d8279897013fd57ac14371c18";
     console.log(weatherLocation);
 
 
@@ -146,8 +146,12 @@ var config = {
       url: queryURLOpenWeatherTwo,
       method: "GET"
       }).then(function(response){
-        console.log(response);  
-      
+        console.log(response.list[0].main.temp + "°F");  
+        $("#dayOne").text(response.list[0].main.temp + "°F");
+        $("#dayTwo").text(response.list[1].main.temp + "°F");
+        $("#dayThree").text(response.list[2].main.temp + "°F");
+        $("#dayFour").text(response.list[3].main.temp + "°F");
+        $("#dayFive").text(response.list[4].main.temp + "°F");
 
    
       });
