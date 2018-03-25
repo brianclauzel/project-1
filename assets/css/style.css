@@ -136,3 +136,17 @@ html {
   height: 500px;
   width: 500px;
 }
+
+#places {
+  height: 300px;
+  width: 300px;
+  margin: 20px;
+  border: 2px solid black;
+}
+
+#recentSearchLocations {
+  height: 300px;
+  width: 300px;
+  margin: 20px;
+  border: 2px solid black;
+}
