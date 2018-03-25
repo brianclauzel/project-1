@@ -77,26 +77,31 @@ var config = {
           });
           marker.setVisible(true);
 
-          infowindowContent.children['place-name'].textContent = place.name;
-          infowindowContent.children['place-id'].textContent = place.place_id;
-          infowindowContent.children['place-address'].textContent =
-              place.formatted_address;
-          infowindow.open(map, marker);
+          // infowindowContent.children['place-name'].textContent = place.name;
+          // infowindowContent.children['place-id'].textContent = place.place_id;
+          // infowindowContent.children['place-address'].textContent =
+          //     place.formatted_address;
+          // infowindow.open(map, marker);
         });
         
       }
 
 
   //getting the value of the entered city to add into the weather api
-  $("body").on("click", ".searchButton", function(event){
+  $(document).on("click", "#searchButton", function(event){
     event.preventDefault();
 
+      console.log("hi");
     var inputChange = $("#locationSearch").val().trim();
+
+    console.log($("#locationSearch").val().trim());
+
     var weatherLocation = inputChange.replace(" ", "+");
-    var cityWeather = $(".city-info").text(weatherLocation);
+    
     
     
     var queryURLOpenWeather = "https://api.openweathermap.org/data/2.5/weather?q=" + weatherLocation + "&units=imperial&appid=cd03ae7d8279897013fd57ac14371c18";
+    var queryURLOpenWeatherTwo = "https://api.openweathermap.org/data/2.5/forecast?q=" + weatherLocation + "&units=imperial&appid=cd03ae7d8279897013fd57ac14371c18";
     console.log(weatherLocation);
 
 
@@ -109,14 +114,48 @@ var config = {
     $("#locationSearch").val("");
 
     
-    //weather api call
+    //current weather api call
     $.ajax({
         url: queryURLOpenWeather,
         method: "GET"
     }).then(function(response){
-        console.log(response);
-        $(".body").append("the temp is: " + response.main.temp + " in farenheit.");
+        console.log(response);  
+        console.log(response.main.temp);
+       
+        
+        var tempy = response.main.temp;
+        console.log(tempy + ": hi");
+        var temp = "<div>the temp is: " + response.main.temp + "°F.</div>";
+        var humid = "<div>the humidity is: " + response.main.humidity + "%.</div>";
+        var pressure = "<div>the temp is: " + response.main.pressure + "PSI.</div>";
+        console.log(temp);
+        $("#places").append(temp);
+        $("#places").append(humid);
+        $("#places").append(pressure);
+
+        // var weatherInfo = $(weatherDiv).text(temp, humid, pressure);
+       
+      // $("#weatherInfo").text(response.main.temp);
+      
+
+        
      });
+
+     //forecast weather api call
+     $.ajax({
+      url: queryURLOpenWeatherTwo,
+      method: "GET"
+      }).then(function(response){
+        console.log(response.list[0].main.temp + "°F");  
+        $("#dayOne").text(response.list[0].main.temp + "°F");
+        $("#dayTwo").text(response.list[1].main.temp + "°F");
+        $("#dayThree").text(response.list[2].main.temp + "°F");
+        $("#dayFour").text(response.list[3].main.temp + "°F");
+        $("#dayFive").text(response.list[4].main.temp + "°F");
+
+   
+      });
+
   });
 
   
@@ -128,12 +167,13 @@ $.ajax ({
   method: "GET",  
   }).then(function(source) {
     console.log(source);
-    $(".GBP").html('$'+source.quotes.USDGBP)
-    $(".EUR").html('$'+source.quotes.USDEUR)
-    $(".CHF").html('$'+source.quotes.USDCHF)
-    $(".JPY").html('$'+source.quotes.USDJPY)
-    $(".AUD").html('$'+source.quotes.USDAUD)
-    $(".MXN").html('$'+source.quotes.USDMXN)
+    $("#GBP").html('$'+source.quotes.USDGBP);
+    $("#EUR").html('$'+source.quotes.USDEUR);
+    $("#CHF").html('$'+source.quotes.USDCHF);
+    $("#JPY").html('$'+source.quotes.USDJPY);
+    $("#AUD").html('$'+source.quotes.USDAUD);
+    $("#MXN").html('$'+source.quotes.USDMXN);
+    
     
   }).catch(function(error) {
     console.log(error)
@@ -141,8 +181,11 @@ $.ajax ({
 
   database.ref().on("child_added", function(childSnapshot, prevChildKey) {
     var travelLocation = childSnapshot.val().locationSearch;
-    $("#places").append("<div>" + travelLocation + "</div>");
+    $("#recentSearchNames").append("<div>" + travelLocation + "</div>");
   });
+
+ 
+ 
 
 
  
