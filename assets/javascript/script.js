@@ -129,9 +129,11 @@ var config = {
         var humid = "<div>the humidity is: " + response.main.humidity + "%.</div>";
         var pressure = "<div>the temp is: " + response.main.pressure + "PSI.</div>";
         console.log(temp);
+        $("#places").text("");
         $("#places").append(temp);
         $("#places").append(humid);
         $("#places").append(pressure);
+
 
         // var weatherInfo = $(weatherDiv).text(temp, humid, pressure);
        
@@ -154,6 +156,7 @@ var config = {
 
   });
 
+  
   
 
 //curency layer API
