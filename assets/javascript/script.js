@@ -307,3 +307,47 @@ $.ajax ({
   })
 
   
+
+
+  //firebase user sign in 
+  $(document).on("click", "#sign-button", function(){
+
+    var email = $("#exampleInputEmail1").val().trim();
+    var password = $("#exampleInputPassword1").val().trim();
+
+    var loginInfo = {
+      email: email,
+      password: password
+    }
+
+    database.ref().push(loginInfo);
+
+    $("#exampleInputEmail1").val('');
+    $("#exampleInputPassword1").val('');
+
+    database.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // ...
+    });
+
+    database.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // User is signed in.
+        var displayName = user.displayName;
+        var email = user.email;
+        var emailVerified = user.emailVerified;
+        var photoURL = user.photoURL;
+        var isAnonymous = user.isAnonymous;
+        var uid = user.uid;
+        var providerData = user.providerData;
+        // ...
+      } else {
+        // User is signed out.
+        // ...
+      }
+    });
+
+    
+  });

@@ -151,3 +151,11 @@ html {
   border: 2px solid black;
   overflow: auto;
 }
+
+/* #loginUI {
+  margin: 300px;
+} */
+
+#log {
+  margin: 300px;
+}
