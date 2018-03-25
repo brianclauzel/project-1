@@ -11,8 +11,10 @@
   
     <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    
     <!-- JavaScript -->
     <script src="assets/javascript/script.js"></script>
+    
     
     <title>Home</title>
 
@@ -68,7 +70,7 @@
   
   <div class="city-info">
 
-  </div>
+      
 
 
   <!-- google maps html stuff -->
@@ -83,20 +85,97 @@
 
 <!-- future weather forcast -->
     <h2 id="futureWeather">5 day weather</h2>
-    <ol id="forcast">
-      <li id="dayOne"></li>
-      <li id="dayTwo"></li>
-      <li id="dayThree"></li>
-      <li id="dayFour"></li>      
-      <li id="dayFive"></li>
-    </ol>
+    
+        
+    <div id="forcast">
+        <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col" id="day">5 day forecast</th>
+                <th scope="col" id="dayOne"></th>
+                <th scope="col" id="dayTwo"></th>
+                <th scope="col" id="dayThree"></th>
+                <th scope="col" id="dayFour"></th>
+                <th scope="col" id="dayFive"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">description</th>
+                <td id="fDescription1"></td>
+                <td id="fDescription2"></d>
+                <td id="fDescription3"></td>
+                <td id="fDescription4"></td>
+                <td id="fDescription5"></td>
+                
+              </tr>
+              <tr>
+                <th scope="row">temp</th>
+                <td id="temp1"></td>
+                <td id="temp2"></td>
+                <td id="temp3"></td>
+                <td id="temp4"></td>
+                <td id="temp5"></td>
+                
+              </tr>
+              <tr>
+                <th scope="row">humidity</th>
+                <td id="row1"></td>
+                <td id="row2"></td>
+                <td id="row3"></td>
+                <td id="row4"></td>
+                <td id="row5"></td>
+                
+              </tr>
+              <tr>
+                  <th scope="row">wind (mph)</th>
+                  <td id="wind1"></td>
+                  <td id="wind2"></td>
+                  <td id="wind3"></td>
+                  <td id="wind4"></td>
+                  <td id="wind5"></td>
+                
+                </tr>
+                <tr>
+                    <th scope="row">pressure</th>
+                    <td id="p1"></td>
+                    <td id="p2"></td>
+                    <td id="p3"></td>
+                    <td id="p4"></td>
+                    <td id="p5"></td>
+                
+                  </tr>
+            </tbody>
+          </table>
+          
+          
+        
+      <thead>
+        <tr>
+          <th ></th>
+          <th ></th>
+          <th ></th>
+          <th ></th>      
+          <th ></th>
+        </tr>
+      </thead>
+        <tbody>
+          <tr>
+            <td>temp</td>
+            <td>humidity</td>
+            <td>pressure</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+    </div>
     <div id="weatherInfoForecast"></div>
 
 <!-- recent search locations -->
   <div id="recentSearchLocations">  
     <div><strong>Recent Searches</strong></div>
     <div id="recentSearchNames"></div>
-    <button id="clearButton" type="reset">Clear List</button>
   </div>
 
     </div>
@@ -129,10 +208,16 @@
         </table>
   </div>
 
- 
 
+
+ 
+  
+  
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_Xfhs13XHrV22XM0BH6cxMe3gu3yx4eg&libraries=places&callback=activatePlacesSearch" async defer></script>
+   
+    
+    
     
   </body>
 </html>
