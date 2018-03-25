@@ -139,8 +139,8 @@ var config = {
        
       // $("#weatherInfo").text(response.main.temp);
       
+      ""
 
-        
      });
 
      //forecast weather api call
@@ -148,12 +148,38 @@ var config = {
       url: queryURLOpenWeatherTwo,
       method: "GET"
       }).then(function(response){
-        console.log(response.list[0].main.temp + "°F");  
-        $("#dayOne").text(response.list[0].main.temp + "°F");
-        $("#dayTwo").text(response.list[1].main.temp + "°F");
-        $("#dayThree").text(response.list[2].main.temp + "°F");
-        $("#dayFour").text(response.list[3].main.temp + "°F");
-        $("#dayFive").text(response.list[4].main.temp + "°F");
+        console.log(response);
+        console.log(response.list[0].main.temp);  
+        $("#dayOne").text("Date: " + response.list[0].dt_txt);
+        $("#dayTwo").text("Date: " + response.list[8].dt_txt);
+        $("#dayThree").text("Date: " + response.list[16].dt_txt);
+        $("#dayFour").text("Date: " + response.list[24].dt_txt);
+        $("#dayFive").text("Date: " + response.list[32].dt_txt);
+        $("#fDescription1").text(response.list[0].weather[0].description);
+ $("#fDescription2").text(response.list[8].weather[0].description);
+$("#fDescription3").text(response.list[16].weather[0].description);
+$("#fDescription4").text(response.list[24].weather[0].description);
+$("#fDescription5").text(response.list[32].weather[0].description);
+$("#temp2").text(response.list[0].main.temp + "°F");
+$("#temp1").text(response.list[8].main.temp + "°F");
+$("#temp3").text(response.list[16].main.temp + "°F");
+$("#temp4").text(response.list[24].main.temp + "°F");
+$("#temp5").text(response.list[32].main.temp + "°F");
+$("#row1").text(response.list[0].main.humidity);
+ $("#row2").text(response.list[8].main.humidity);
+$("#row3").text(response.list[16].main.humidity);
+$("#row4").text(response.list[24].main.humidity);
+$("#row5").text(response.list[32].main.humidity);
+$("#wind1").text(response.list[0].wind.speed + " mph");
+ $("#wind2").text(response.list[8].wind.speed + " mph");
+$("#wind3").text(response.list[16].wind.speed + " mph");
+$("#wind4").text(response.list[24].wind.speed + " mph");
+$("#wind5").text(response.list[32].wind.speed + " mph");
+$("#p1").text(response.list[0].main.pressure);
+ $("#p2").text(response.list[8].main.pressure);
+$("#p3").text(response.list[16].main.pressure);
+$("#p4").text(response.list[24].main.pressure);
+$("#p5").text(response.list[32].main.pressure);
 
    
       });
@@ -279,3 +305,5 @@ $.ajax ({
     $("#exampleInputFrom").html(source.origin)
   });
   })
+
+  
