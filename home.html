@@ -19,6 +19,17 @@
     
     <title>Home</title>
 
+    <style>
+      [class*="col-"], .col {
+      border: 1px dashed #ddd;
+  }
+  
+  #none {
+      border: none;
+      border-style: none;
+  }
+          </style>
+
 </head>
 <body>
 
@@ -39,7 +50,7 @@
             <a class="nav-link" href="justin-html/contact.html">Contact</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="brian-html/sign-in.html">User</a>
+              <a class="nav-link" href="brian-html/sign-in.html">User</a> <!-- move to the book now pg--> 
             </li>
           </ul>
         </div>
@@ -71,27 +82,142 @@
     <button class="btn btn-outline-success my-2 my-sm-0" id="searchButton" type="submit" style="color: white">Let's Go!</button>
     </div>
   </header>
+
+  <br>
+  <br>
   
+  <div class="container">
   <div class="city-info">
 
       
 
 
   <!-- google maps html stuff -->
-  <div id="map"></div>
+  <div id="map" style="width:100%;height:400px"></div>
   
   <div id="right-panel">
+    <br>
+    <br>
   
   <!-- current weather -->
-    <h2>Current weather</h2>
-    <ul id="places"></ul>
+  
+  <div class="row">
+    <div class="col-sm-3">
+        <h4>Current weather</h4>
+        <!--<ul id="places"></ul>-->
     <div id="weatherInfo"></div>
+    </div>
+    
+    <div class="col-sm-9">
+        <h4 id="futureWeather">5 day weather</h4>
+        <div id="forcast">
+            <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col" id="day">5 day forecast</th>
+                    <th scope="col" id="dayOne"></th>
+                    <th scope="col" id="dayTwo"></th>
+                    <th scope="col" id="dayThree"></th>
+                    <th scope="col" id="dayFour"></th>
+                    <th scope="col" id="dayFive"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">description</th>
+                    <td id="fDescription1"></td>
+                    <td id="fDescription2"></d>
+                    <td id="fDescription3"></td>
+                    <td id="fDescription4"></td>
+                    <td id="fDescription5"></td>
+                    
+                  </tr>
+                  <tr>
+                    <th scope="row">temp</th>
+                    <td id="temp1"></td>
+                    <td id="temp2"></td>
+                    <td id="temp3"></td>
+                    <td id="temp4"></td>
+                    <td id="temp5"></td>
+                    
+                  </tr>
+                  <tr>
+                    <th scope="row">humidity</th>
+                    <td id="row1"></td>
+                    <td id="row2"></td>
+                    <td id="row3"></td>
+                    <td id="row4"></td>
+                    <td id="row5"></td>
+                    
+                  </tr>
+                  <tr>
+                      <th scope="row">wind (mph)</th>
+                      <td id="wind1"></td>
+                      <td id="wind2"></td>
+                      <td id="wind3"></td>
+                      <td id="wind4"></td>
+                      <td id="wind5"></td>
+                    
+                    </tr>
+                    <tr>
+                        <th scope="row">pressure</th>
+                        <td id="p1"></td>
+                        <td id="p2"></td>
+                        <td id="p3"></td>
+                        <td id="p4"></td>
+                        <td id="p5"></td>
+                    
+                      </tr>
+                </tbody>
+              </table>
+    </div>
+    </div>
+    </div>
+    
+    <br>
+    <br>
+    
+    <div class="row">
+        <div class="col-lg-12">
+            <h4>USD Currency Rate</h4>
+    <div id="commonCurrencies panel panel-primary">
+        <table class="table table-hover">
+            <thead id="thead">
+              <tr>
+                <th scope="col">british</th>
+                <th scope="col">european</th>
+                <th scope="col">mexico</th>
+                <th scope="col">japanese</th>
+                <th scope="col">australian</th>
+                <th scope="col">canadian</th>
+                
+              </tr>
+            </thead>
+              <tbody>
+                <tr>
+                  <td id="GBP"></td>
+                  <td id="EUR"></td>
+                  <td id="CHF"></td>
+                  <td id="JPY"></td>
+                  <td id="AUD"></td>
+                  <td id="MXN"></td>
+                </tr>
+              </tbody>
+            
+          </table>
+    </div>
+  </div> 
+</div>
+
+   <!-- <h2>Current weather</h2>
+    <ul id="places"></ul>
+    <div id="weatherInfo"></div>-->
 
 <!-- future weather forcast -->
-    <h2 id="futureWeather">5 day weather</h2>
+    <!--<h2 id="futureWeather">5 day weather</h2>-->
     
         
-    <div id="forcast">
+    <!--<div id="forcast">
         <table class="table">
             <thead class="thead-dark">
               <tr>
@@ -174,18 +300,18 @@
           </tr>
         </tbody>
     </div>
-    <div id="weatherInfoForecast"></div>
+    <div id="weatherInfoForecast"></div>-->
 
 <!-- recent search locations -->
-  <div id="recentSearchLocations">  
+ <!-- <div id="recentSearchLocations">  
     <div><strong>Recent Searches</strong></div>
     <div id="recentSearchNames"></div>
   </div>
 
-    </div>
+    </div>-->
 
 <!-- currency panel -->
-  <div id="commonCurrencies panel panel-primary">
+  <!--<div id="commonCurrencies panel panel-primary">
       <table class="table table-hover">
           <thead id="thead">
             <tr>
@@ -211,6 +337,10 @@
           
         </table>
   </div>
+</div>-->
+
+<!--MAIN FOOTER-->
+
 
 
 
