@@ -436,68 +436,50 @@ $.ajax ({
 });
   
 
-  //point of interest 
-  $(".btn").on("click", function(event){
-    event.preventDefault();
-    var origin = $("#exampleInputFrom").val().trim();
-    
-  console.log(origin)
-  
- 
-  var queryURLAmadeus = "https://api.sandbox.amadeus.com/v1.2/points-of-interest/yapq-search-text?city_name=" + origin + "&geonames=true" + "&number_of_results=5&apikey=0t376ZdSmzCLYEX2EkTXpb8iEABUZ2Hp"
-  console.log(queryURLAmadeus)
- 
-  $.ajax ({
-    url: queryURLAmadeus,
-    method: "GET",
-  }).then(function(source) {
-    console.log(source);
-    $("#exampleInputFrom").html(source.origin)
-  });
-  })
-
-  
-
-
   //firebase user sign in 
-  $(document).on("click", "#sign-button", function(){
-
-    var email = $("#exampleInputEmail1").val().trim();
-    var password = $("#exampleInputPassword1").val().trim();
-
-    var loginInfo = {
-      email: email,
-      password: password
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      // User is signed in.
+  
+      document.getElementById("user_div").style.display = "block";
+      document.getElementById("login_div").style.display = "none";
+  
+      var user = firebase.auth().currentUser;
+  
+      if(user != null){
+  
+        var email_id = user.email;
+        document.getElementById("user_para").innerHTML = "Welcome User : " + email_id;
+  
+      }
+  
+    } else {
+      // No user is signed in.
+  
+      document.getElementById("user_div").style.display = "none";
+      document.getElementById("login_div").style.display = "block";
+  
     }
-
-    database.ref().push(loginInfo);
-
-    $("#exampleInputEmail1").val('');
-    $("#exampleInputPassword1").val('');
-
-    database.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+  });
+  
+  function login(){
+  
+    var userEmail = document.getElementById("email_field").value;
+    var userPass = document.getElementById("password_field").value;
+  
+    firebase.auth().signInWithEmailAndPassword(userEmail, userPass).catch(function(error) {
       // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
+  
+      window.alert("Error : " + errorMessage);
+  
       // ...
     });
-
-    database.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        // User is signed in.
-        var displayName = user.displayName;
-        var email = user.email;
-        var emailVerified = user.emailVerified;
-        var photoURL = user.photoURL;
-        var isAnonymous = user.isAnonymous;
-        var uid = user.uid;
-        var providerData = user.providerData;
-        // ...
-      } else {
-        // User is signed out.
-        // ...
-      }
-    });
-
-    
-  });
+  
+  }
+  
+  function logout(){
+    firebase.auth().signOut();
+  }
+  
