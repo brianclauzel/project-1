@@ -98,6 +98,12 @@ var config = {
 
     var weatherLocation = inputChange.replace(" ", "+");
 
+    var testy = inputChange.replace(" ", "+").split(",");
+
+    var testy1 = testy[0];
+
+    console.log(testy1);
+
     var stringSplit = inputChange.split(",");
     
     var stringOne = stringSplit[0];
@@ -108,7 +114,7 @@ var config = {
     
     var queryURLOpenWeather = "https://api.openweathermap.org/data/2.5/weather?q=" + weatherLocation + "&units=imperial&appid=cd03ae7d8279897013fd57ac14371c18";
     var queryURLOpenWeatherTwo = "https://api.openweathermap.org/data/2.5/forecast?q=" + weatherLocation + "&units=imperial&appid=cd03ae7d8279897013fd57ac14371c18";
-    var queryURLAmadeus = "https://api.sandbox.amadeus.com/v1.2/points-of-interest/yapq-search-text?city_name=" + stringOne + "&geonames=true&number_of_results=5&apikey=0t376ZdSmzCLYEX2EkTXpb8iEABUZ2Hp"
+    var queryURLAmadeus = "https://api.sandbox.amadeus.com/v1.2/points-of-interest/yapq-search-text?city_name=" + testy1 + "&geonames=true&number_of_results=5&apikey=0t376ZdSmzCLYEX2EkTXpb8iEABUZ2Hp"
  
     console.log(weatherLocation);
 
@@ -271,9 +277,10 @@ $.ajax ({
     console.log(error)
   })
 
+  //recent search pull from firebase
   database.ref().on("child_added", function(childSnapshot, prevChildKey) {
     var travelLocation = childSnapshot.val().locationSearch;
-    $("#recentSearchNames").append("<div>" + travelLocation + "</div>");
+    $("#recentSearchLocations").prepend("<div>" + travelLocation + "</div>");
   });
 
  
@@ -449,17 +456,37 @@ $.ajax ({
       if(user != null){
   
         var email_id = user.email;
-        document.getElementById("user_para").innerHTML = "Welcome User : " + email_id;
+        var email_verified = user.emailVerified;
+
+        if (email_verified) {
+
+          document.getElementById('verify-btn').style.display = "none";
+          document.getElementById("recentSearches").style.display = "block";
+          document.getElementById("recentSearchLocations").style.display = "block";
+
+        } else {
+          
+          document.getElementById("verify-btn").style.display = "block";
+
+        }
+
+        document.getElementById("user_para").innerHTML = "Welcome: " + email_id
+        + "<br/> Verfied: " + email_verified;
   
       }
   
-    } else {
+    } 
+    
+      else {
       // No user is signed in.
   
-      document.getElementById("user_div").style.display = "none";
-      document.getElementById("login_div").style.display = "block";
+        document.getElementById("user_div").style.display = "none";
+        document.getElementById("login_div").style.display = "block";
+        document.getElementById("recentSearches").style.display = "none";
+        document.getElementById("recentSearchLocations").style.display = "none";
   
     }
+
   });
   
   function login(){
@@ -474,12 +501,40 @@ $.ajax ({
   
       window.alert("Error : " + errorMessage);
   
-      // ...
+    
     });
   
   }
   
+  function create_account() {
+    var userEmail = document.getElementById("email_field").value;
+    var userPass = document.getElementById("password_field").value;
+
+    firebase.auth().createUserWithEmailAndPassword(userEmail, userPass).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+  
+      window.alert("Error : " + errorMessage);
+  
+    });
+
+  }
+
   function logout(){
     firebase.auth().signOut();
+  }
+
+  function send_verification() {
+
+    var user = firebase.auth().currentUser;
+
+    user.sendEmailVerification().then(function() {
+      document.getElementById("user_para").innerHTML = "Verification Email Sent.";
+      // Email sent.
+    }).catch(function(error) {
+      // An error happened.
+    });
+
   }
   
