@@ -10,3 +10,26 @@ form {
 
 
 }
+
+#results, #results1 {
+    font-family: 'Indie Flower', cursive;
+}
+
+#flight{
+  border-width:5px;  
+  border-style:double;
+    background-image: url("assets/images/clouds.jpg");
+    background-repeat: no-repeat;
+  background-size: 1000px 500px;
+
+ 
+}
+
+#hotel{
+border-width:5px;  
+  border-style:double;
+    background-image: url("assets/images/hotel3.jpg");
+    background-repeat: no-repeat;
+  background-size: 1000px 500px;
+  
+}
