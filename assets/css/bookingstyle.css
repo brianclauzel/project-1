@@ -3,9 +3,9 @@ form {
     margin-top: 0em;
     z-index: 1000;
     border-style: groove;
-    padding: 10px 50px;
+    padding: 20px 50px;
     margin-top: 06%;
-    margin-left: -200px;
+    margin-left: -100px;
     background-color: rgba(0,0,0,0.65); /*red, green, blue, opacity*/
 
 
