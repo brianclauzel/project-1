@@ -19,17 +19,11 @@
     
     <title>Home</title>
 
-    <style>
-      [class*="col-"], .col {
-      border: 1px dashed #ddd;
-  }
-  
- 
-          </style>
+    
 
 </head>
 <body>
-
+<div id="page"></div>
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <a class="navbar-brand" href="home.html">Travel Buddy</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -245,12 +239,27 @@
   
 
 <!--MAIN FOOTER-->
-
-
-
-
  
-  
+  <script>
+ 
+$(function(){
+    
+    var btn = document.querySelector('.btn');
+    
+    btn.addEventListener("click", function() {
+        btn.innerHTML = "Searching...";
+        btn.classList.add('spinning');
+        
+      setTimeout( 
+            function  (){  
+                btn.classList.remove('spinning');
+                btn.innerHTML = "Lets Go!";
+                
+            }, 6000);
+    }, false);
+    
+});
+  </script>
   
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_Xfhs13XHrV22XM0BH6cxMe3gu3yx4eg&libraries=places&callback=activatePlacesSearch" async defer></script>

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="justin-html/kevinnewstyle.css">
     <link rel="stylesheet" href="assets/css/bookingstyle.css">
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
     
     <title>Book Now</title>
    
@@ -135,8 +136,9 @@
      
     
   <section class="section section-a">
-    <div class="container">
-      <h2>Flight Results / Select Flight</h2>
+    <div id="results" class="container">
+      <h1>Flight Results</h1>
+      <small>Budget Friendly Options to your Destination</small>
       <div id="resultsA">
       <p></p>
     </div>
@@ -144,10 +146,10 @@
 
   <div>
   <div class="container">
-  <table class="table table-hover">
+  <table id="flight" class="table table-hover">
     <thead>
       <tr>
-        <th scope="col">Options</th>
+        <th scope="col">Option</th>
         <th scope="col">Fare</th>
         <th scope="col">Depature Info</th>
         <th scope="col">Arrival Info</th>
@@ -193,11 +195,12 @@
   </table>
 </div>
 
-<br>
+
   <br>
   <section class="section section-a">
-    <div class="container">
-      <h2>Flight Hotel / Select Hotel</h2>
+    <div id="results1" class="container">
+      <h1>Hotel Results</h1>
+      <small>Results reflect options near the airport for easy access and most importantly affordable.</small>
       <div id="resultsA">
       <p></p>
     </div>
@@ -205,7 +208,7 @@
 
   <div>
   <div class="container">
-  <table class="table table-hover">
+  <table id="hotel" class="table table-hover">
     <thead>
       <tr>
         <th scope="col">Option</th>
@@ -250,7 +253,16 @@
 </div>
 
   <br>
-  <br>
+
+
+  <section class="section section-a">
+    <div id="results" class="container">
+      <h1>Google Maps</h1>
+      <small>Try searching for alternative hotel options or restaurants or anything. Its goolge...</small>
+      <div id="resultsA">
+      <p></p>
+    </div>
+  </section>
 
   <div class="container">
   <input id="pac-input" class="controls" type="text" placeholder="Search Box">
@@ -264,6 +276,7 @@
       <p></p>
     </div>
   </section>-->
+  <br>
   <br>
 
   <footer id="main-footer" class="text-center p-4">
