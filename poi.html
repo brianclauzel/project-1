@@ -5,6 +5,7 @@
   <title>Page Title</title>
   
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 </head>
   <body>
     <script
@@ -24,7 +25,62 @@
               <button type="submit" class="btn btn-primary">Search</button>
               
             </form>
+
+            <br>
+            <br>
+            <div class="container">
+            <h2 id="cityName"></h2>
+            <p align="center">Points of Interest</p>
+            <hr>
+    <!--<div>
+      <p id="title"></p>
+      <p id="description"></p>
+      <p><img class="image" src="" alt="" style="height: 250px" 'width=250px'></p>
+    </div>-->
+
+    <p id="title" class="col-9"></p>
+    <div class="row">
+        <div class="col-3"><img class="image" src="" alt="" style="height: 150px" 'width=150px'></div>
+        <div id="description"  class="col-9"></div>
+        <hr>
+    
+
+    <p id="title1" class="col-9"></p>
+    <div class="row">
+        <div class="col-3"><img class="image1" src="" alt="" style="height: 150px" 'width=150px'></div>
+        <div id="description1"  class="col-9"></div>
+        <hr>
+   
+
+    <p id="title2" class="col-9"></p>
+    <div class="row">
+        <div class="col-3"><img class="image2" src="" alt="" style="height: 150px" 'width=150px'></div>
+        <div id="description2"  class="col-9"></div>
+        <hr>
+   
+
+    <p id="title3" class="col-9"></p>
+    <div class="row">
+        <div class="col-3"><img class="image3" src="" alt="" style="height: 150px" 'width=150px'></div>
+        <div id="description3"  class="col-9"></div>
+        <hr>
+    
+
+    <p id="title4" class="col-9"></p>
+    <div class="row">
+        <div class="col-3"><img class="image4" src="" alt="" style="height: 150px" 'width=150px'></div>
+        <div id="description4"  class="col-9"></div>
+        <hr>
+    </div>
+ 
+
+   
+    
+    
             <script>
+
+
+//Points of Interest 
             
  $(".btn").on("click", function(event){
    event.preventDefault();
@@ -32,16 +88,60 @@
    
  console.log(origin)
  
-
  var queryURLAmadeus = "https://api.sandbox.amadeus.com/v1.2/points-of-interest/yapq-search-text?city_name=" + origin + "&geonames=true" + "&number_of_results=5&apikey=0t376ZdSmzCLYEX2EkTXpb8iEABUZ2Hp"
+ 
  console.log(queryURLAmadeus)
 
+ //aJax Call to Amadeus 
  $.ajax ({
    url: queryURLAmadeus,
    method: "GET",
- }).then(function(source) {
-   console.log(source);
-   $("#exampleInputFrom").html(source.origin)
+ }).then(function(response) {
+
+   console.log(response);
+   console.log(response.current_city.name);
+   console.log(response.points_of_interest[0].details.short_description)
+   console.log(response.points_of_interest[0].main_image)
+   console.log(response.points_of_interest[0].title)
+   console.log(response.points_of_interest[0].location.google_maps_link)
+
+   var cityName = response.current_city.name;
+
+   var description = response.points_of_interest[0].details.short_description;
+
+   var image = response.points_of_interest[0].main_image;
+
+   var title = response.points_of_interest[0].title; 
+
+   //City Name
+   //$("#cityName").html('City Name: ' + response.current_city.name);
+   $("#cityName").html(response.current_city.name);
+
+   //Attraction 0 
+   $("#title").html('Attraction: ' + response.points_of_interest[0].title);
+   $("#description").html('Description: ' + response.points_of_interest[0].details.short_description);
+   $(".image").attr("src", response.points_of_interest[0].main_image);
+
+   //Attraction 1 
+   $("#title1").html('Attraction: ' + response.points_of_interest[1].title);
+   $("#description1").html('Description: ' + response.points_of_interest[1].details.short_description);
+   $(".image1").attr("src", response.points_of_interest[1].main_image);
+
+   //Attraction 2
+   $("#title2").html('Attraction: ' + response.points_of_interest[2].title);
+   $("#description2").html('Description: ' + response.points_of_interest[2].details.short_description);
+   $(".image2").attr("src", response.points_of_interest[2].main_image);
+
+   //Attraction 3   
+   $(".image3").attr("src", response.points_of_interest[3].main_image);
+   $("#title3").html('Attraction: ' + response.points_of_interest[3].title);
+   $("#description3").html('Description: ' + response.points_of_interest[3].details.short_description);
+   
+   //Attraction 4
+  $(".image4").attr("src", response.points_of_interest[4].main_image);
+  $("#title4").html('Attraction: ' + response.points_of_interest[4].title);
+  $("#description4").html('Description: ' + response.points_of_interest[4].details.short_description);
+
  })
  })
 

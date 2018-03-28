@@ -28,11 +28,55 @@ $(".btn").on("click", function(event){
   }).then(function(response) {
    console.log(response);
    console.log(response.results[0].fare.price_per_adult.total_fare);
-      var tBody = $("<div>");
+   console.log(response.results[0].itineraries[0].outbound.flights[0].departs_at);
+   console.log(response.results[0].itineraries[0].outbound.flights[0].arrives_at);
+   
       var fare = response.results[0].fare.price_per_adult.total_fare;
-      var addingF = $(tBody).html(fare);
-      $("#fare").append(addingF);
+      $("#fare").text("$" + fare);
+      
+      var depart = response.results[0].itineraries[0].outbound.flights[0].departs_at;
+      $("#depart").text(depart);
+      
+      var ariv = response.results[0].itineraries[0].outbound.flights[0].arrives_at;
+      $("#arrive").text(ariv);
      
+      var fare2 = response.results[1].fare.price_per_adult.total_fare;
+      $("#fare2").text("$" + fare2);
+      
+      var depart2 = response.results[1].itineraries[0].outbound.flights[0].departs_at;
+      $("#depart2").text(depart2);
+      
+      var ariv2 = response.results[1].itineraries[0].outbound.flights[0].arrives_at;
+      $("#arrive2").text(ariv2);
+
+      var fare3 = response.results[2].fare.price_per_adult.total_fare;
+      $("#fare3").text("$" + fare3);
+
+      var depart3 = response.results[2].itineraries[0].outbound.flights[0].departs_at;
+      $("#depart3").text(depart3);
+
+      var ariv3 = response.results[2].itineraries[0].outbound.flights[0].arrives_at;
+      $("#arrive3").text(ariv3);
+
+      var fare4 = response.results[3].fare.price_per_adult.total_fare;
+      $("#fare4").text("$" + fare4);
+
+      var depart4 = response.results[3].itineraries[0].outbound.flights[0].departs_at;
+      $("#depart4").text(depart4);
+
+      var ariv4 = response.results[3].itineraries[0].outbound.flights[0].arrives_at;
+      $("#arrive4").text(ariv4);
+
+      var fare5 = response.results[4].fare.price_per_adult.total_fare;
+      $("#fare5").text("$" + fare5);
+
+      var depart5 = response.results[4].itineraries[0].outbound.flights[0].departs_at;
+      $("#depart5").text(depart5);
+
+      var ariv5 = response.results[4].itineraries[0].outbound.flights[0].arrives_at;
+      $("#arrive5").text(ariv5);
+
+
   });
   })
   
@@ -57,9 +101,55 @@ $(".btn").on("click", function(event){
   $.ajax ({
     url: queryURLAmadeus2,
     method: "GET",
-  }).then(function(source) {
-    console.log(source);
-    $("#exampleInputFrom").html(source.origin)
+  }).then(function(response) {
+    console.log(response);
+    console.log(response.results[0].total_price.amount);
+
+       var price = response.results[0].total_price.amount;
+       $("#price").text("$" + price);
+      
+       var address = response.results[0].address.line1;
+       $("#address").text(address);
+      
+       var hotelName = response.results[0].property_name;
+       $("#hotelName").text(hotelName);
+      
+       var price2 = response.results[1].total_price.amount;
+       $("#price2").text("$" + price);
+      
+       var address2 = response.results[1].address.line1;
+       $("#address2").text(address2);
+      
+       var hotelName2 = response.results[1].property_name;
+       $("#hotelName2").text(hotelName2);
+
+       var price3 = response.results[2].total_price.amount;
+       $("#price3").text("$" + price3);
+       
+       var address3 = response.results[2].address.line1;
+       $("#address3").text(address3);
+      
+       var hotelName3 = response.results[2].property_name;
+       $("#hotelName3").text(hotelName3);
+
+       var price4 = response.results[3].total_price.amount;
+       $("#price4").text("$" + price4);
+      
+       var address4 = response.results[3].address.line1;
+       $("#address4").text(address4);
+      
+       var hotelName4 = response.results[3].property_name;
+       $("#hotelName4").text(hotelName4);
+
+       
+       var price5 = response.results[4].total_price.amount;
+       $("#price5").text("$" + price5);
+      
+       var address5 = response.results[4].address.line1;
+       $("#address5").text(address5);
+      
+       var hotelName5 = response.results[4].property_name;
+       $("#hotelName5").text(hotelName5);
   })
   })
 

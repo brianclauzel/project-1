@@ -97,11 +97,25 @@ var config = {
     console.log($("#locationSearch").val().trim());
 
     var weatherLocation = inputChange.replace(" ", "+");
+
+    var testy = inputChange.replace(" ", "+").split(",");
+
+    var testy1 = testy[0];
+
+    console.log(testy1);
+
+    var stringSplit = inputChange.split(",");
+    
+    var stringOne = stringSplit[0];
+
+    $("#weatherInfo").append(stringOne);
     
     
     
     var queryURLOpenWeather = "https://api.openweathermap.org/data/2.5/weather?q=" + weatherLocation + "&units=imperial&appid=cd03ae7d8279897013fd57ac14371c18";
     var queryURLOpenWeatherTwo = "https://api.openweathermap.org/data/2.5/forecast?q=" + weatherLocation + "&units=imperial&appid=cd03ae7d8279897013fd57ac14371c18";
+    var queryURLAmadeus = "https://api.sandbox.amadeus.com/v1.2/points-of-interest/yapq-search-text?city_name=" + testy1 + "&geonames=true&number_of_results=5&apikey=0t376ZdSmzCLYEX2EkTXpb8iEABUZ2Hp"
+ 
     console.log(weatherLocation);
 
 
@@ -125,21 +139,22 @@ var config = {
         
         var tempy = response.main.temp;
         console.log(tempy + ": hi");
-        var temp = "<div>the temp is: " + response.main.temp + "°F.</div>";
-        var humid = "<div>the humidity is: " + response.main.humidity + "%.</div>";
-        var pressure = "<div>the temp is: " + response.main.pressure + "PSI.</div>";
+        var temp = "<div>The temp is: " + response.main.temp + "°F.</div>";
+        var humid = "<div>The humidity is: " + response.main.humidity + "%.</div>";
+        var pressure = "<div>The pressure  is: " + response.main.pressure + ".</div>";
         console.log(temp);
-        $("#places").text("");
-        $("#places").append(temp);
-        $("#places").append(humid);
-        $("#places").append(pressure);
+        $("#weatherInfo").text("");
+        $("#weatherInfo").append(stringOne);
+        $("#weatherInfo").append(temp);
+        $("#weatherInfo").append(humid);
+        $("#weatherInfo").append(pressure);
 
 
         // var weatherInfo = $(weatherDiv).text(temp, humid, pressure);
        
       // $("#weatherInfo").text(response.main.temp);
       
-      ""
+      
 
      });
 
@@ -183,6 +198,60 @@ $("#p5").text(response.list[32].main.pressure);
 
    
       });
+      
+
+      $.ajax ({
+        url: queryURLAmadeus,
+        method: "GET",
+      }).then(function(response) {
+     
+        console.log(response);
+        console.log(response.current_city.name);
+        console.log(response.points_of_interest[0].details.short_description)
+        console.log(response.points_of_interest[0].main_image)
+        console.log(response.points_of_interest[0].title)
+        console.log(response.points_of_interest[0].location.google_maps_link)
+     
+        var cityName = response.current_city.name;
+     
+        var description = response.points_of_interest[0].details.short_description;
+     
+        var image = response.points_of_interest[0].main_image;
+     
+        var title = response.points_of_interest[0].title; 
+     
+        //City Name
+        //$("#cityName").html('City Name: ' + response.current_city.name);
+        $("#cityName").html(response.current_city.name);
+     
+        //Attraction 0 
+        $("#title0").html('Attraction: ' + response.points_of_interest[0].title);
+        $("#description0").html('Description: ' + response.points_of_interest[0].details.short_description);
+        $(".image0").attr("src", response.points_of_interest[0].main_image);
+     
+        //Attraction 1 
+        $("#title1").html('Attraction: ' + response.points_of_interest[1].title);
+        $("#description1").html('Description: ' + response.points_of_interest[1].details.short_description);
+        $(".image1").attr("src", response.points_of_interest[1].main_image);
+     
+        //Attraction 2
+        $("#title2").html('Attraction: ' + response.points_of_interest[2].title);
+        $("#description2").html('Description: ' + response.points_of_interest[2].details.short_description);
+        $(".image2").attr("src", response.points_of_interest[2].main_image);
+     
+        //Attraction 3   
+        $(".image3").attr("src", response.points_of_interest[3].main_image);
+        $("#title3").html('Attraction: ' + response.points_of_interest[3].title);
+        $("#description3").html('Description: ' + response.points_of_interest[3].details.short_description);
+        
+        //Attraction 4
+       $(".image4").attr("src", response.points_of_interest[4].main_image);
+       $("#title4").html('Attraction: ' + response.points_of_interest[4].title);
+       $("#description4").html('Description: ' + response.points_of_interest[4].details.short_description);
+     
+      });
+
+
 
   });
 
@@ -208,9 +277,10 @@ $.ajax ({
     console.log(error)
   })
 
+  //recent search pull from firebase
   database.ref().on("child_added", function(childSnapshot, prevChildKey) {
     var travelLocation = childSnapshot.val().locationSearch;
-    $("#recentSearchNames").append("<div>" + travelLocation + "</div>");
+    $("#recentSearchLocations").prepend("<div>" + travelLocation + "</div>");
   });
 
  
@@ -218,136 +288,253 @@ $.ajax ({
 
 
  
-  //updated flight ajax call
-  //updated hotel ajax and endpoint call
-  $(".btn").on("click", function(event) {
-    event.preventDefault();
-    var origin = $("#exampleInputFrom").val();
-    var destination = $("#exampleInputTo").val();
-    var dates = $("#exampleInputDates").val();
-    var toDates= $("#exampleInputToDates").val();
-    var trav = $("#exampleInputTravelers").val();
-  console.log(origin);
-  console.log(destination);
-  console.log(dates);
-  console.log(toDates);
-  console.log(trav); 
-  var corsProxy = "https://cors-anywhere.herokuapp.com/";
-  var queryURLAmadeus = corsProxy +"https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?origin=" + origin + "&destination=" + destination + "&departure_date=" + dates + "&return_date=" + toDates + "&number_of_results=5&apikey=0t376ZdSmzCLYEX2EkTXpb8iEABUZ2Hp"
-  console.log(queryURLAmadeus);
+  //FLight details 
+$(".btn").on("click", function(event){
+  event.preventDefault();
+
+  var origin = $("#exampleInputFrom").val().trim();
+  var destination = $("#exampleInputTo").val().trim();
+  var dates = $("#exampleInputDates").val().trim();
+  var toDates= $("#exampleInputToDates").val().trim();
+  var trav = $("#exampleInputTravelers").val().trim();
+  var budget = $("#max_price").val().trim();
+
+console.log(origin)
+console.log(destination)
+console.log(dates)
+console.log(toDates)
+console.log(trav) 
+console.log(budget)
+
+var corsProxy = "https://cors-anywhere.herokuapp.com/";
+var queryURLAmadeus = corsProxy +"https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?origin=" + origin + "&destination=" + destination + "&departure_date=" + dates + "&return_date=" + toDates + "&max_price=" + budget + "&currency=USD" + "&number_of_results=5&apikey=0t376ZdSmzCLYEX2EkTXpb8iEABUZ2Hp"
+
+console.log(queryURLAmadeus)
+
+$.ajax ({
+  url: queryURLAmadeus,
+  method: "GET",
+}).then(function(response) {
+ console.log(response);
+ console.log(response.results[0].fare.price_per_adult.total_fare);
+ console.log(response.results[0].itineraries[0].outbound.flights[0].departs_at);
+ console.log(response.results[0].itineraries[0].outbound.flights[0].arrives_at);
+ 
+    var fare = response.results[0].fare.price_per_adult.total_fare;
+    $("#fare").text("$" + fare);
+    
+    var depart = response.results[0].itineraries[0].outbound.flights[0].departs_at;
+    $("#depart").text(depart);
+    
+    var ariv = response.results[0].itineraries[0].outbound.flights[0].arrives_at;
+    $("#arrive").text(ariv);
+   
+    var fare2 = response.results[1].fare.price_per_adult.total_fare;
+    $("#fare2").text("$" + fare2);
+    
+    var depart2 = response.results[1].itineraries[0].outbound.flights[0].departs_at;
+    $("#depart2").text(depart2);
+    
+    var ariv2 = response.results[1].itineraries[0].outbound.flights[0].arrives_at;
+    $("#arrive2").text(ariv2);
+
+    var fare3 = response.results[2].fare.price_per_adult.total_fare;
+    $("#fare3").text("$" + fare3);
+
+    var depart3 = response.results[2].itineraries[0].outbound.flights[0].departs_at;
+    $("#depart3").text(depart3);
+
+    var ariv3 = response.results[2].itineraries[0].outbound.flights[0].arrives_at;
+    $("#arrive3").text(ariv3);
+
+    var fare4 = response.results[3].fare.price_per_adult.total_fare;
+    $("#fare4").text("$" + fare4);
+
+    var depart4 = response.results[3].itineraries[0].outbound.flights[0].departs_at;
+    $("#depart4").text(depart4);
+
+    var ariv4 = response.results[3].itineraries[0].outbound.flights[0].arrives_at;
+    $("#arrive4").text(ariv4);
+
+    var fare5 = response.results[4].fare.price_per_adult.total_fare;
+    $("#fare5").text("$" + fare5);
+
+    var depart5 = response.results[4].itineraries[0].outbound.flights[0].departs_at;
+    $("#depart5").text(depart5);
+
+    var ariv5 = response.results[4].itineraries[0].outbound.flights[0].arrives_at;
+    $("#arrive5").text(ariv5);
+
+
+});
+})
+
+
+//hotel details 
+$(".btn").on("click", function(event){
+  event.preventDefault();
+ 
   var location = $("#exampleInputTo").val().trim();
-      var checkIn = $("#exampleInputDates").val().trim();
-      var checkOut= $("#exampleInputToDates").val().trim();
-      
-    console.log(location)
-    console.log(checkIn)
-    console.log(checkOut)
-    
-    var corsProxy = "https://cors-anywhere.herokuapp.com/";
-    var queryURLAmadeus2 = corsProxy +"https://api.sandbox.amadeus.com/v1.2/hotels/search-airport?location=" + location + "&check_in=" + checkIn + "&check_out=" + checkOut + "&currency=USD" + "&number_of_results=5&apikey=0t376ZdSmzCLYEX2EkTXpb8iEABUZ2Hp"
-    
-    console.log(queryURLAmadeus2)
-    
-    $.ajax ({
-      url: queryURLAmadeus2,
-      method: "GET",
-    }).then(function(response) {
-      console.log(response);
-      console.log(response.results[0].property_name);
-      var body = $("<div>");
-      var hotel = response.results[0].property_name;
-      var addingH = $(body).text(hotel);
-      $("#hotelName").text(hotel);
-    })
-    
-  $.ajax ({
-    url: queryURLAmadeus,
-    method: "GET",
-  }).then(function(response) {
-   console.log(response);
-   console.log(response.results[0].fare.price_per_adult.total_fare);
-   console.log(response.results[0].itineraries[0].inbound.flights[0].arrives_at);
-   console.log(response.results[0].itineraries[0].outbound.flights[0].departs_at);
-      var tBody = $("<div>");
-      var fare = response.results[0].fare.price_per_adult.total_fare;
-      
-      var addingF = $(tBody).text(fare);
-      
-      var depart = response.results[0].itineraries[0].outbound.flights[0].departs_at;
-      
-      var addingDep = $(tBody).text(depart);
-      
-      var ariv = response.results[0].itineraries[0].inbound.flights[0].arrives_at;
-      
-      var addingAriv = $(tBody).text(ariv);
-      $("#fare").text(fare);
-      $("#arrive").text(ariv);
-      $("#depart").text(depart);
-  });
-  })
-
-  //point of interest 
-  $(".btn").on("click", function(event){
-    event.preventDefault();
-    var origin = $("#exampleInputFrom").val().trim();
-    
-  console.log(origin)
+  var checkIn = $("#exampleInputDates").val().trim();
+  var checkOut= $("#exampleInputToDates").val().trim();
   
- 
-  var queryURLAmadeus = "https://api.sandbox.amadeus.com/v1.2/points-of-interest/yapq-search-text?city_name=" + origin + "&geonames=true" + "&number_of_results=5&apikey=0t376ZdSmzCLYEX2EkTXpb8iEABUZ2Hp"
-  console.log(queryURLAmadeus)
- 
-  $.ajax ({
-    url: queryURLAmadeus,
-    method: "GET",
-  }).then(function(source) {
-    console.log(source);
-    $("#exampleInputFrom").html(source.origin)
-  });
-  })
+console.log(location)
+console.log(checkIn)
+console.log(checkOut)
 
+var corsProxy = "https://cors-anywhere.herokuapp.com/";
+var queryURLAmadeus2 = corsProxy +"https://api.sandbox.amadeus.com/v1.2/hotels/search-airport?location=" + location + "&check_in=" + checkIn + "&check_out=" + checkOut + "&currency=USD" + "&number_of_results=5&apikey=0t376ZdSmzCLYEX2EkTXpb8iEABUZ2Hp"
+
+console.log(queryURLAmadeus2)
+
+$.ajax ({
+  url: queryURLAmadeus2,
+  method: "GET",
+}).then(function(response) {
+  console.log(response);
+  console.log(response.results[0].total_price.amount);
+
+     var price = response.results[0].total_price.amount;
+     $("#price").text("$" + price);
+    
+     var address = response.results[0].address.line1;
+     $("#address").text(address);
+    
+     var hotelName = response.results[0].property_name;
+     $("#hotelName").text(hotelName);
+    
+     var price2 = response.results[1].total_price.amount;
+     $("#price2").text("$" + price);
+    
+     var address2 = response.results[1].address.line1;
+     $("#address2").text(address2);
+    
+     var hotelName2 = response.results[1].property_name;
+     $("#hotelName2").text(hotelName2);
+
+     var price3 = response.results[2].total_price.amount;
+     $("#price3").text("$" + price3);
+     
+     var address3 = response.results[2].address.line1;
+     $("#address3").text(address3);
+    
+     var hotelName3 = response.results[2].property_name;
+     $("#hotelName3").text(hotelName3);
+
+     var price4 = response.results[3].total_price.amount;
+     $("#price4").text("$" + price4);
+    
+     var address4 = response.results[3].address.line1;
+     $("#address4").text(address4);
+    
+     var hotelName4 = response.results[3].property_name;
+     $("#hotelName4").text(hotelName4);
+
+     
+     var price5 = response.results[4].total_price.amount;
+     $("#price5").text("$" + price5);
+    
+     var address5 = response.results[4].address.line1;
+     $("#address5").text(address5);
+    
+     var hotelName5 = response.results[4].property_name;
+     $("#hotelName5").text(hotelName5);
+})
+});
   
-
 
   //firebase user sign in 
-  $(document).on("click", "#sign-button", function(){
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      // User is signed in.
+  
+      document.getElementById("user_div").style.display = "block";
+      document.getElementById("login_div").style.display = "none";
+  
+      var user = firebase.auth().currentUser;
+  
+      if(user != null){
+  
+        var email_id = user.email;
+        var email_verified = user.emailVerified;
 
-    var email = $("#exampleInputEmail1").val().trim();
-    var password = $("#exampleInputPassword1").val().trim();
+        if (email_verified) {
 
-    var loginInfo = {
-      email: email,
-      password: password
+          document.getElementById('verify-btn').style.display = "none";
+          document.getElementById("recentSearches").style.display = "block";
+          document.getElementById("recentSearchLocations").style.display = "block";
+
+        } else {
+          
+          document.getElementById("verify-btn").style.display = "block";
+
+        }
+
+        document.getElementById("user_para").innerHTML = "Welcome: " + email_id
+        + "<br/> Verfied: " + email_verified;
+  
+      }
+  
+    } 
+    
+      else {
+      // No user is signed in.
+  
+        document.getElementById("user_div").style.display = "none";
+        document.getElementById("login_div").style.display = "block";
+        document.getElementById("recentSearches").style.display = "none";
+        document.getElementById("recentSearchLocations").style.display = "none";
+  
     }
 
-    database.ref().push(loginInfo);
-
-    $("#exampleInputEmail1").val('');
-    $("#exampleInputPassword1").val('');
-
-    database.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+  });
+  
+  function login(){
+  
+    var userEmail = document.getElementById("email_field").value;
+    var userPass = document.getElementById("password_field").value;
+  
+    firebase.auth().signInWithEmailAndPassword(userEmail, userPass).catch(function(error) {
       // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
-      // ...
-    });
-
-    database.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        // User is signed in.
-        var displayName = user.displayName;
-        var email = user.email;
-        var emailVerified = user.emailVerified;
-        var photoURL = user.photoURL;
-        var isAnonymous = user.isAnonymous;
-        var uid = user.uid;
-        var providerData = user.providerData;
-        // ...
-      } else {
-        // User is signed out.
-        // ...
-      }
-    });
-
+  
+      window.alert("Error : " + errorMessage);
+  
     
-  });
+    });
+  
+  }
+  
+  function create_account() {
+    var userEmail = document.getElementById("email_field").value;
+    var userPass = document.getElementById("password_field").value;
+
+    firebase.auth().createUserWithEmailAndPassword(userEmail, userPass).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+  
+      window.alert("Error : " + errorMessage);
+  
+    });
+
+  }
+
+  function logout(){
+    firebase.auth().signOut();
+  }
+
+  function send_verification() {
+
+    var user = firebase.auth().currentUser;
+
+    user.sendEmailVerification().then(function() {
+      document.getElementById("user_para").innerHTML = "Verification Email Sent.";
+      // Email sent.
+    }).catch(function(error) {
+      // An error happened.
+    });
+
+  }
+  
