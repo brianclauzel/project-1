@@ -258,25 +258,6 @@ $("#p5").text(response.list[32].main.pressure);
   
   
 
-//curency layer API
-
-$.ajax ({
-  url: queryURLCurrencyLayer,
-  method: "GET",  
-  }).then(function(source) {
-    console.log(source);
-    $("#GBP").html('$'+source.quotes.USDGBP);
-    $("#EUR").html('$'+source.quotes.USDEUR);
-    $("#CHF").html('$'+source.quotes.USDCHF);
-    $("#JPY").html('$'+source.quotes.USDJPY);
-    $("#AUD").html('$'+source.quotes.USDAUD);
-    $("#MXN").html('$'+source.quotes.USDMXN);
-    
-    
-  }).catch(function(error) {
-    console.log(error)
-  })
-
   //recent search pull from firebase
   database.ref().on("child_added", function(childSnapshot, prevChildKey) {
     var travelLocation = childSnapshot.val().locationSearch;
