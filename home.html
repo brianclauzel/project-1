@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="justin-html/kevinnewstyle.css">
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
   
-    <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-auth.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     
     <!-- JavaScript -->
@@ -18,35 +19,38 @@
     
     <title>Home</title>
 
+    
+
 </head>
 <body>
+<div id="page"></div>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" href="home.html">Travel Buddy</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="justin-html/aboutus.html">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="justin-html/blog.html">Blog</a>
+        </li>
+      <li class="nav-item">
+        <a class="nav-link" href="justin-html/contact.html">Contact</a>
+      </li>
 
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="home.html">Travel Buddy</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-          <ul class="navbar-nav mr-auto">
+      </ul>
+    </div>
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" href="justin-html/aboutus.html">About</a>
+                <a class="nav-link" href="booknow.html">Book Now</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="justin-html/blog.html">Blog</a>
-            </li>
-          <li class="nav-item">
-            <a class="nav-link" href="justin-html/contact.html">Contact</a>
-          </li>
-          </ul>
-        </div>
-        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="booknow.html">Book Now</a>
-                </li>
-            </ul>
-        </div>
-      </nav>
+        </ul>
+    </div>
+  </nav>
   
   <header class="v-header container">
     <div class="fullscreen-video-wrap">
@@ -59,7 +63,7 @@
     <div class="header-overlay"></div>
     <div class="header-content text-md-center">
       <h1>Travel Buddy</h1>
-      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Id temporibus perferendis!</p>
+      <b><i><p style="color: white">Explore Destinations - Search Flight & Hotel with Budget - Book the Lowest Prices for your Travel</p></i></b>
       <input class="form-control mr-sm-2" type="search" placeholder="Where would you like to go?" aria-label="Search"
       id="locationSearch">
       <br>
@@ -67,131 +71,161 @@
     <button class="btn btn-outline-success my-2 my-sm-0" id="searchButton" type="submit" style="color: white">Let's Go!</button>
     </div>
   </header>
+
+  <br>
+  <br>
+
   
+  <h1 id="recentSearches">Recent Searches</h1>
+  <div id="recentSearchLocations">You Are Not Signed In</div>
+  <div class="container">
   <div class="city-info">
 
-      
 
+    <!-- points of interest-->
+      <div class="container">
+          <h2 id="cityName"></h2>
+          <p align="center">Points of Interest</p>
+
+  <p id="title0" class="col-12"></p>
+  <div class="row">
+      <div class="col-3"><img class="image0" src="" alt="" style="height: 150px" 'width=150px'></div>
+      <div id="description0"  class="col-9"></div>
+     
+
+
+  <p id="title1" class="col-12"></p>
+  <div class="row">
+      <div class="col-3"><img class="image1" src="" alt="" style="height: 150px" 'width=150px'></div>
+      <div id="description1"  class="col-9"></div>
+     
+ 
+
+  <p id="title2" class="col-12"></p>
+  <div class="row">
+      <div class="col-3"><img class="image2" src="" alt="" style="height: 150px" 'width=150px'></div>
+      <div id="description2"  class="col-9"></div>
+     
+ 
+
+  <p id="title3" class="col-12"></p>
+  <div class="row">
+      <div class="col-3"><img class="image3" src="" alt="" style="height: 150px" 'width=150px'></div>
+      <div id="description3"  class="col-9"></div>
+
+      </div>
+     
+
+  <!-- <p id="title4" class="col-12"></p>
+  <div class="row">
+      <div class="col-3"><img class="image4" src="" alt="" style="height: 150px" 'width=150px'></div>
+      <div id="description4"  class="col-9"></div>-->
+     <br>
+     <br>
 
   <!-- google maps html stuff -->
-  <div id="map"></div>
+  
+  <div id="map" style="width:100%;height:400px"></div>
   
   <div id="right-panel">
-  
-  <!-- current weather -->
-    <h2>Current weather</h2>
-    <ul id="places"></ul>
-    <div id="weatherInfo"></div>
-
-<!-- future weather forcast -->
-    <h2 id="futureWeather">5 day weather</h2>
     
-        
-    <div id="forcast">
-        <table class="table">
-            <thead class="thead-dark">
-              <tr>
-                <th scope="col" id="day">5 day forecast</th>
-                <th scope="col" id="dayOne"></th>
-                <th scope="col" id="dayTwo"></th>
-                <th scope="col" id="dayThree"></th>
-                <th scope="col" id="dayFour"></th>
-                <th scope="col" id="dayFive"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">description</th>
-                <td id="fDescription1"></td>
-                <td id="fDescription2"></d>
-                <td id="fDescription3"></td>
-                <td id="fDescription4"></td>
-                <td id="fDescription5"></td>
-                
-              </tr>
-              <tr>
-                <th scope="row">temp</th>
-                <td id="temp1"></td>
-                <td id="temp2"></td>
-                <td id="temp3"></td>
-                <td id="temp4"></td>
-                <td id="temp5"></td>
-                
-              </tr>
-              <tr>
-                <th scope="row">humidity</th>
-                <td id="row1"></td>
-                <td id="row2"></td>
-                <td id="row3"></td>
-                <td id="row4"></td>
-                <td id="row5"></td>
-                
-              </tr>
-              <tr>
-                  <th scope="row">wind (mph)</th>
-                  <td id="wind1"></td>
-                  <td id="wind2"></td>
-                  <td id="wind3"></td>
-                  <td id="wind4"></td>
-                  <td id="wind5"></td>
-                
-                </tr>
-                <tr>
-                    <th scope="row">pressure</th>
-                    <td id="p1"></td>
-                    <td id="p2"></td>
-                    <td id="p3"></td>
-                    <td id="p4"></td>
-                    <td id="p5"></td>
-                
+    <br>
+    <br>
+    
+    <div class="container"></div>
+  <!-- current weather -->
+  
+  <div class="row">
+    <div class="col-sm-3">
+        <h4>Today's Weather</h4>
+        <!--<ul id="places"></ul>-->
+    <div id="weatherInfo">
+      
+    </div>
+    </div>
+    
+    <div class="col-sm-9">
+        <h4 id="futureWeather">5 Day Forecast</h4>
+        <div id="forcast">
+            <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col" id="day">Details</th>
+                    <th scope="col" id="dayOne"></th>
+                    <th scope="col" id="dayTwo"></th>
+                    <th scope="col" id="dayThree"></th>
+                    <th scope="col" id="dayFour"></th>
+                    <th scope="col" id="dayFive"></th>
                   </tr>
-            </tbody>
-          </table>
-          
-          
-        
-      <thead>
-        <tr>
-          <th ></th>
-          <th ></th>
-          <th ></th>
-          <th ></th>      
-          <th ></th>
-        </tr>
-      </thead>
-        <tbody>
-          <tr>
-            <td>temp</td>
-            <td>humidity</td>
-            <td>pressure</td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-        </tbody>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Description</th>
+                    <td id="fDescription1"></td>
+                    <td id="fDescription2"></d>
+                    <td id="fDescription3"></td>
+                    <td id="fDescription4"></td>
+                    <td id="fDescription5"></td>
+                    
+                  </tr>
+                  <tr>
+                    <th scope="row">Temp</th>
+                    <td id="temp1"></td>
+                    <td id="temp2"></td>
+                    <td id="temp3"></td>
+                    <td id="temp4"></td>
+                    <td id="temp5"></td>
+                    
+                  </tr>
+                  <tr>
+                    <th scope="row">Humidity</th>
+                    <td id="row1"></td>
+                    <td id="row2"></td>
+                    <td id="row3"></td>
+                    <td id="row4"></td>
+                    <td id="row5"></td>
+                    
+                  </tr>
+                  <tr>
+                      <th scope="row">Wind (mph)</th>
+                      <td id="wind1"></td>
+                      <td id="wind2"></td>
+                      <td id="wind3"></td>
+                      <td id="wind4"></td>
+                      <td id="wind5"></td>
+                    
+                    </tr>
+                    <tr>
+                        <th scope="row">pressure</th>
+                        <td id="p1"></td>
+                        <td id="p2"></td>
+                        <td id="p3"></td>
+                        <td id="p4"></td>
+                        <td id="p5"></td>
+                    
+                      </tr>
+                </tbody>
+              </table>
     </div>
-    <div id="weatherInfoForecast"></div>
-
-<!-- recent search locations -->
-  <div id="recentSearchLocations">  
-    <div><strong>Recent Searches</strong></div>
-    <div id="recentSearchNames"></div>
-  </div>
-
     </div>
-
-<!-- currency panel -->
+    </div>
+    
+    <br>
+    <br>
+    
+    <div class="row">
+      <div class="col-lg-12">
+          <h4>USD Exchange Rate</h4>
   <div id="commonCurrencies panel panel-primary">
       <table class="table table-hover">
           <thead id="thead">
             <tr>
-              <th scope="col">british</th>
-              <th scope="col">european</th>
-              <th scope="col">mexico</th>
-              <th scope="col">japanese</th>
-              <th scope="col">australian</th>
-              <th scope="col">swiss franc</th>
-              
+              <th scope="col">GBP (United Kingdom)</th>
+              <th scope="col">EUR (Europe)</th>
+              <th scope="col">CHF (Switzerland)</th>
+              <th scope="col">JPY (Japan)</th>
+              <th scope="col">AUD (Australia)</th>
+              <th scope="col">MXN (Mexico)</th>
             </tr>
           </thead>
             <tbody>
@@ -207,11 +241,34 @@
           
         </table>
   </div>
+</div> 
+</div>
+</div>
 
-
-
- 
   
+
+<!--MAIN FOOTER-->
+ 
+  <script>
+ 
+$(function(){
+    
+    var btn = document.querySelector('.btn');
+    
+    btn.addEventListener("click", function() {
+        btn.innerHTML = "Searching...";
+        btn.classList.add('spinning');
+        
+      setTimeout( 
+            function  (){  
+                btn.classList.remove('spinning');
+                btn.innerHTML = "Lets Go!";
+                
+            }, 6000);
+    }, false);
+    
+});
+  </script>
   
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_Xfhs13XHrV22XM0BH6cxMe3gu3yx4eg&libraries=places&callback=activatePlacesSearch" async defer></script>
